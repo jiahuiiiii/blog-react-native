@@ -1,33 +1,22 @@
-import { Text, View, StatusBar } from "react-native";
-import { useEffect, useState } from "react";
-import Post from "./components/Post";
+import { View, Text } from 'react-native'
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Home from './components/pages/Home';
+import Login from './components/pages/Login';
 
-export default function App() {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetch("http://192.168.1.103:8787/list")
-      .then((res) => res.json())
-      .then((d) => setData(d));
-  }, []);
 
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <View
-      style={{
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        flex: 1,
-        backgroundColor: "#fcd34d",
-      }}
-    >
-      <StatusBar backgroundColor="#fbbf24" />
-      <View style={{}}>
-        <Text
-          style={{ fontSize: 24, paddingVertical: 10, paddingHorizontal: 2 }}
-        >
-          jiahuiiiii's blogggg :)
-        </Text>
-        <Post data={data} />
-      </View>
-    </View>
-  );
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
+
+export default App
